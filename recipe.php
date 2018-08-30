@@ -12,8 +12,9 @@
 <body>
     <?php
     $dbh = new PDO('mysql:host=localhost;dbname=english_recipes', 'admin', 'plop');
-    $recipes = $dbh->query('SELECT * from recipe');
+    $recipe = $dbh->query('SELECT * from recipe WHERE id = 1')->fetch();
     ?>
+
 
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <a class="navbar-brand" href="#">Favourite Recipes</a>
@@ -25,7 +26,7 @@
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="recipe.php">Home page<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="index.php">Recipe<span class="sr-only">(current)</span></a>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
@@ -34,45 +35,27 @@
             </form>
         </div>
     </nav>
-
-    <main role="main">
-
-        <div class="jumbotron">
-            <div class="container">
-
-                <h1 class="display-3">My favourite recipes</h1>
-                <p>I present you original recipes, tested and approved by all my circle of acquaintances. There is thus nobody anymore, each having succumbed to atrocious deaths.</p>
-                <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="row">
-                <?php
-                foreach ($recipes as $recipe) {?>
-                <div class="col-md-4">
-                    <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="<?php  echo ($recipe['image']);?>" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title"><?php  echo ($recipe['title']);?></h5>
-                            <p class="card-text"><?php  echo ($recipe['resum']);?></p>
-                            <a class="btn-danger" href="recipe.php?recipe=<?php echo $recipe['id'] ?>">VOIR LA RECETTE</a>
-                        </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="card">
+                    <img class="card-img-top" src="https://images.media-allrecipes.com/userphotos/720x405/586409.jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h1 class="card-title"><?php  echo ($recipe['title']);?></h1>
+                        <p class="card-text"><?php  echo ($recipe['resum']);?></p>
+                        <h2>Ingredients :</h2>
+                        <p><?php  echo ($recipe['ingredients']);?></p>
+                        <p><?php  echo ($recipe['directions']);?></p>
                     </div>
+                    <!-- card body -->
                 </div>
-                <?php
-                }
-                ?>
-
+                <!-- card -->
             </div>
-
-            <hr>
-
+            <!-- col -->
         </div>
+        <!-- row -->
+    </div>
         <!-- /container -->
-
-    </main>
-
     <footer class="container">
         <p>&copy; Company 2017-2018</p>
     </footer>
